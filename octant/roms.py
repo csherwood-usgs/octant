@@ -10,8 +10,8 @@ try:
 except:
     import netCDF3 as netCDF4
 
+import octant.depths as depths
 from octant.io import Dataset
-from octant.depths import s_coordinate
 from octant.grid import CGrid, rho_to_vert
 
 def nc_gls_dissipation(nc, tidx):
@@ -237,7 +237,6 @@ def write_grd(grd, filename='ocean_grd.nc', full_output=True, verbose=False):
     
     nc.close()
 
-
 class nc_depths(object):
     """return an object that can be indexed like an ndarray to return depths
     
@@ -288,10 +287,10 @@ class nc_depths(object):
         # Get the scoordinate associated with the specified grid-type
         self.grid = grid
         if self.grid == 'rho':
-            self.s = get_srho(self.N)
+            self.s = depths.get_srho(self.N)
         elif self.grid == 'w':
             self.N += 1
-            self.s = get_sw(self.N)
+            self.s = depths.get_sw(self.N)
         else:
             raise Exception('grid type ', grid, 'not defined.')
         
@@ -317,10 +316,10 @@ class nc_depths(object):
         self.zeta = self.nc.variables['zeta']
         
         # Load in the function for C(s)
-        self.C = get_Vstretching(self.Vstretching, self.theta_s, self.theta_b, Hscale=3)
+        self.C = depths.get_Vstretching(self.Vstretching, self.theta_s, self.theta_b, Hscale=3)
         
         # Load in the function for depths(s, zeta)
-        self.depths = get_depths(self.Vtransform, self.C, self.h, self.hc)
+        self.depths = depths.get_depths(self.Vtransform, self.C, self.h, self.hc)
     
     def __getitem__(self, indices):
         if not isinstance(indices, tuple):
@@ -333,12 +332,19 @@ class nc_depths(object):
         
         if isinstance(indices[0], int):
             zeta = self.zeta[indices[0], ...]
-            depths = self.depths(s, zeta)[indices[1], indices[2], indices[3]]
+            depths = self.depths(self.s, zeta)[indices[1], indices[2], indices[3]]
+        
         else:
             zeta = self.zeta[indices[0]][:, np.newaxis, ...]
-            depths = self.depths(s, zeta)[:, indices[1], indices[2], indices[3]]
-            
+            depths = self.depths(self.s, zeta)[:, indices[1], indices[2], indices[3]]
+        
         print 'depths.shape = ', depths.shape
         return depths
+    
+
+
+
+
+
 
 
