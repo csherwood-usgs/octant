@@ -105,7 +105,8 @@ if __name__ == '__main__':
           license = 'BSD',
           platforms = ["any"],
           ext_package='octant',
-          ext_modules = [iso, csa, gridgen],
+          ext_modules = [iso, csa],
+          # ext_modules = [iso, csa, gridgen],
           classifiers = filter(None, classifiers.split("\n")),
           )
     
