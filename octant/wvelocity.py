@@ -43,25 +43,24 @@ def omega(u, v, pm, pn, Hz, geoscale=False):
     return omega[..., :-1, :, :]
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 
-# import octant
+    import octant
 
-Hz = octant.depths.get_Hz(2, 4, 30, 5.0, 1.0, 100.0*ones((40, 50)), 10.0)
+    Hz = octant.depths.get_Hz(2, 4, 30, 5.0, 1.0, 100.0*ones((40, 50)), 10.0)
 
-x = 500.0 * arange(50)
-y = 500.0 * arange(40)
+    x = 500.0 * arange(50)
+    y = 500.0 * arange(40)
 
-x, y = np.meshgrid(x, y)
+    x, y = np.meshgrid(x, y)
 
-xu = 0.5 * (x[:, 1:] + x[:, :-1])
-u = 0.5 * ones((30, 40, 49)) * sin(xu / 10000.0)
-v = zeros((30, 39, 50))
+    xu = 0.5 * (x[:, 1:] + x[:, :-1])
+    u = 0.5 * ones((30, 40, 49)) * sin(xu / 10000.0)
+    v = zeros((30, 39, 50))
 
-pm = 0.002 * ones((40, 50))
-pn = 0.002 * ones((40, 50))
+    pm = 0.002 * ones((40, 50))
+    pn = 0.002 * ones((40, 50))
     
     
-o = omega(u, v, pm, pn, Hz)
+    o = omega(u, v, pm, pn, Hz)
     
-print o
