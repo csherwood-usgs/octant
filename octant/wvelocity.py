@@ -4,10 +4,14 @@ __docformat__ = "restructuredtext en"
 
 import numpy as np
 
-def omega(u, v, pm, pn, Hz, geoscale=False):
+def omegaHz(u, v, pm, pn, Hz, Hz_t=0):
     '''
     Calculate omega, the grid-relative vertical velocity, on the s-coordinate.
     By definition, omega(sigma=-1) = omega(sigma=0) = 0.
+    
+    Solutions are based on continuity in a sigma coordinate:
+    
+    Hz_t + (Hz*u)_x + (Hz*v)_y + (Hz*omega)_sigma = 0
     
     Parameters
     ----------
@@ -17,30 +21,24 @@ def omega(u, v, pm, pn, Hz, geoscale=False):
         The grid metrics, inverse grid widths
     Hz : 3D or 4D array
         The vertical layer thickness at rho-points
-    detadt : 2D or 4D array
-        The rate of change of the sea-level.  [Default = 0]
-        
+    Hz_t : 2D or 4D array
+        The rate of change of the the vertical coordinate.  [Default = 0]
+    
     Returns
     -------
-    omega : 3D array
-        The grid-relative vertical velocity on w-points
+    omegaHz : 3D array
+        The grid-relative vertical velocity on w-points multiplied by Hz,
+        i.e., Hz*omega in the equation above.
     
     '''
     
-    Hzom = (Hz[..., :, :-1] + Hz[...,:,1:]) / (pm[:, :-1] + pm[:, 1:])  # on u-points
-    Hzon = (Hz[..., :-1, :] + Hz[...,1:,:]) / (pn[:-1, :] + pn[1:, :])  # on v-points
+    uflux = u[..., 1:-1, :] * 0.5 * (Hz[..., 1:-1, :-1] + Hz[..., 1:-1, 1:])
+    vflux = v[..., :, 1:-1]  * 0.5 * (Hz[..., :-1, 1:-1] + Hz[..., 1:, 1:-1])
+    omegaHz_sigma = -Hz_t - np.diff(uflux, axis=-1)*pm[1:-1, 1:-1] - np.diff(vflux, axis=-2)*pn[1:-1, 1:-1] 
     
-    print "Hzom.shape = ", Hzom.shape
-    print "u.shape = ", u.shape
+    return np.cumsum(omegaHz_sigma, axis=-3)
     
-    hdiv = ( (u*Hzom)[..., 1:-1, 1:] - (u*Hzom)[..., 1:-1, :-1] ) + ( (v*Hzon)[..., 1:, 1:-1] - (v*Hzon)[..., :-1, 1:-1] )
-    
-    omega = -cumsum(hdiv, axis=-3)
-    
-    if geoscale:
-        omega = omega * 0.5 * (Hz[..., 1:, :, :] + Hz[..., :-1, :, :])
-    
-    return omega[..., :-1, :, :]
+
 
 
 if __name__ == '__main__':
