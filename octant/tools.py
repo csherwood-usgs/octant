@@ -156,7 +156,7 @@ class plfilt(object):
 
 
 
-def isoslice(z, q, zo=0, mode='spline'):
+def isoslice(q, z, zo=0, mode='spline'):
     """Return a slice a 3D field along an isosurface.
     
     result is a a projection of variable at property == isoval in the first
