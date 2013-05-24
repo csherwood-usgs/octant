@@ -187,7 +187,7 @@ def isoslice(z, q, zo=0, mode='spline'):
     q = np.atleast_3d(q)
     assert z.shape == q.shape, 'z and q must be the same shape'
     
-    qo *= np.ones(q.shape[1:])
+    zo *= np.ones(q.shape[1:])
     
     q2d = _iso.zslice(z, q, zo, imode)
     if np.any(q2d==1e20):
