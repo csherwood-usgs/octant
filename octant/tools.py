@@ -243,7 +243,7 @@ def hgrad(q, zr, pm, pn):
     pmu = 0.5 * (pm[:, 1:] + pm[:, :-1])
     pnv = 0.5 * (pn[1:, :] + pn[:-1, :])
     
-    dz = diff(zr, axis=0)
+    dz = np.diff(zr, axis=-3)
     dzu = 0.5 * (dz[:, :, 1:] + dz[:, :, :-1])
     dzv = 0.5 * (dz[:, 1:, :] + dz[:, :-1, :])
     
