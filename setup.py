@@ -101,7 +101,7 @@ if __name__ == '__main__':
           packages = ['octant',
                       'octant.extern',
                       'octant.ocean',
-                      'octant.sw'],
+                      'octant.python-gsw'],
           license = 'BSD',
           platforms = ["any"],
           ext_package='octant',
