@@ -23,7 +23,7 @@ import grid
 import io
 import ocean
 import tools
-import sw
+import python-gsw as gsw
 
 __authors__ = ['Robert Hetland <hetland@tamu.edu>',
                'Richard Hofmeister <richard.hofmeister@io-warnemuende.de>']
