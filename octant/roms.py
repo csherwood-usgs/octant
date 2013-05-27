@@ -328,8 +328,6 @@ class nc_depths(object):
         while len(indices) < 4:
             indices += (slice(None),)
         
-        print 'indices = ', indices
-        
         if isinstance(indices[0], int):
             zeta = self.zeta[indices[0], ...]
             depths = self.depths(self.s, zeta)[indices[1], indices[2], indices[3]]
@@ -338,7 +336,6 @@ class nc_depths(object):
             zeta = self.zeta[indices[0]][:, np.newaxis, ...]
             depths = self.depths(self.s, zeta)[:, indices[1], indices[2], indices[3]]
         
-        print 'depths.shape = ', depths.shape
         return depths
     
 
