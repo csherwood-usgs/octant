@@ -806,7 +806,7 @@ class CGrid_geo(CGrid):
         self.lon_psi, self.lat_psi = self.proj(self.x_psi, self.y_psi,
                                                inverse=True)
         
-        self.f = 2.0 * 7.29e-5 * np.cos(self.lat_rho * np.pi / 180.0)
+        self.f = 2.0 * 7.29e-5 * np.sin(self.lat_rho * np.pi / 180.0)
         
     def mask_polygon_geo(lonlat_verts, mask_value=0.0):
         lon, lat = zip(*lonlat_verts)
