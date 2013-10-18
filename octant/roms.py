@@ -14,6 +14,8 @@ import octant.depths as depths
 from octant.io import Dataset
 from octant.grid import CGrid, rho_to_vert
 
+def nc_time(nc, time_variable='ocean_time'):
+
 def nc_gls_dissipation(nc, tidx):
     '''Return the dissipation, based on tke, gls and the gls scheme parameters 
        cmu0, m, n, and p.  Usage:
@@ -223,7 +225,7 @@ def write_grd(grd, filename='ocean_grd.nc', full_output=True, verbose=False):
         write_nc_var(grd.y_v, 'y_v', ('eta_v', 'xi_v'), 'meters')
         write_nc_var(grd.x_psi, 'x_psi', ('eta_psi', 'xi_psi'), 'meters')
         write_nc_var(grd.y_psi, 'y_psi', ('eta_psi', 'xi_psi'), 'meters')
-        if grd.proj is not None:
+        try:
             write_nc_var(grd.lon_vert, 'lon_vert', ('eta_vert', 'xi_vert'), 'meters')
             write_nc_var(grd.lat_vert, 'lat_vert', ('eta_vert', 'xi_vert'), 'meters')
             write_nc_var(grd.lon_rho, 'lon_rho', ('eta_rho', 'xi_rho'), 'meters')
@@ -234,6 +236,9 @@ def write_grd(grd, filename='ocean_grd.nc', full_output=True, verbose=False):
             write_nc_var(grd.lat_v, 'lat_v', ('eta_v', 'xi_v'), 'meters')
             write_nc_var(grd.lon_psi, 'lon_psi', ('eta_psi', 'xi_psi'), 'meters')
             write_nc_var(grd.lat_psi, 'lat_psi', ('eta_psi', 'xi_psi'), 'meters')
+        except:
+            if verbose:
+                print '... NO GEOGRAPHIC GRID INFORMATION FOUND.'
     
     nc.close()
 
