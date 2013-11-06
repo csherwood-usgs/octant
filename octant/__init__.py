@@ -15,14 +15,14 @@ External tools included within the source tree for convenience:
 
 '''
 
-import cf
-import csa
 import depths
 import extern
 import grid
 import io
-import ocean
+import roms
+import slice
 import tools
+import wvelocity
 
 __authors__ = ['Robert Hetland <hetland@tamu.edu>',
                'Richard Hofmeister <richard.hofmeister@io-warnemuende.de>']

@@ -1,40 +1,5 @@
-"""Octant is a suite of tools for working with ocean models.
+"""Octant is a suite of tools for working with C-grid ocean models.
 
-Requires:
-    NumPy (http://numpy.scipy.org)
-    matplotlib with the Basemap toolkit (http://matplotlib.sourceforge.net)
-    netCDF4 (http://www.cdc.noaa.gov/people/jeffrey.s.whitaker/python/netCDF4.html)
-
-Contains:
-    grid  -  Tools for dealing with curvilinear grids
-      gridgen
-      focus
-      boundaryclick
-      Grid
-      gshhs
-      greatcircle
-
-    tools -  Generic tools.
-      polygeom
-      polyclick
-      delaunay
-
-    io
-      pupynere
-      Dataset
-
-    ocean
-      depths
-      velocity
-      time
-
-    roms -  Tools specific to the Regional Ocean Modeling System
-      nc_variables
-      write_roms_grid
-
-    getm - Tools specific to the General Estuarine Transport Model
-      nc_variables
-      write_getm_grid
 """
 
 classifiers = """\
