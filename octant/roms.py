@@ -5,16 +5,12 @@ __docformat__ = "restructuredtext en"
 from datetime import datetime
 
 import numpy as np
-try:
-    import netCDF4
-except:
-    import netCDF3 as netCDF4
+import netCDF4
 
 import octant.depths as depths
 from octant.io import Dataset
 from octant.grid import CGrid, rho_to_vert
 
-def nc_time(nc, time_variable='ocean_time'):
 
 def nc_gls_dissipation(nc, tidx):
     '''Return the dissipation, based on tke, gls and the gls scheme parameters 
