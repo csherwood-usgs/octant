@@ -54,10 +54,6 @@ from numpy.distutils.core import Extension
 iso = Extension(name = '_iso',
                 sources = ['octant/src/iso.f'])
 
-csa = Extension(name = '_csa',
-                sources=["octant/src/csa/csa.c",
-                         "octant/src/csa/svd.c"])
-
 doclines = __doc__.split("\n")
 
 if __name__ == '__main__':
@@ -75,7 +71,7 @@ if __name__ == '__main__':
           license = 'BSD',
           platforms = ["any"],
           ext_package='octant',
-          ext_modules = [iso, csa],
+          ext_modules = [iso, ],
           classifiers = filter(None, classifiers.split("\n")),
           )
     
