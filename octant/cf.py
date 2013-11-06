@@ -1,5 +1,10 @@
 # encoding: utf-8
 """
+DEPRECATED
+
+Instead use netCDF4.num2date.
+
+
 cf.py - classes around CF compliant files
 
 The cf module is made for reading CF-compliant datasets,
